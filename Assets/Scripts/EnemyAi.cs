@@ -1,114 +1,111 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyAi : MonoBehaviour
 {
-    public NavMeshAgent agent;
+    public Transform target; // The target the enemy will move towards and attack
+    public float movementSpeed = 5f; // The movement speed of the enemy
+    public float attackRange = 2f; // The range at which the enemy can attack the target
+    public int attackDamage = 10; // The amount of damage the enemy inflicts on the target
+    public float attackForce = 10f; // The force applied to the target on attack
 
-    public Transform player;
+    private NavMeshAgent navMeshAgent; // Reference to the NavMeshAgent component
 
-    public LayerMask whatIsGround, whatIsPlayer;
 
-    public float health;
+    private bool canAttack = true; // Flag to indicate if the enemy can attack
+    private bool isStopped = false; // Flag to indicate if the enemy is currently stopped
 
-    //Patroling
-    public Vector3 walkPoint;
-    bool walkPointSet;
-    public float walkPointRange;
+    public float attackTimer = 0f; // Timer to track the cooldown duration
+    public float attackCooldown = 2f; // The cooldown duration between attacks
+    public float stopDuration = 1f; // The duration the enemy stops before resuming movement
 
-    //Attacking
-    public float timeBetweenAttacks;
-    bool alreadyAttacked;
-    public GameObject projectile;
 
-    //States
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
-
-    private void Awake()
+    private void Start()
     {
-        player = GameObject.Find("PlayerObj").transform;
-        agent = GetComponent<NavMeshAgent>();
+        navMeshAgent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
     }
 
     private void Update()
     {
-        //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-
-    }
-    private void Patroling()
-    {
-        if (!walkPointSet) SearchWalkPoint();
-
-        if (walkPointSet)
-            agent.SetDestination(walkPoint);
-
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        //walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
-            walkPointSet = false;
-    }
-
-    private void SearchWalkPoint()
-    {
-        //Calculate random point in range
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
-            walkPointSet = true;
-    }
-
-    private void ChasePlayer()
-    {
-        agent.SetDestination(player.position);
-    }
-
-    private void AttackPlayer()
-    {
-        //Make sure enemy doesnt move
-        agent.SetDestination(transform.position);
-
-        transform.LookAt(player);
-
-        if (!alreadyAttacked)
+        if (target != null)
         {
-            ///Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-            ///
+            // Calculate the distance to the target
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            // If within attack range, initiate an attack
+            if (distanceToTarget <= attackRange && canAttack)
+            {
+                Attack();
+            }
+            else
+            {
+                // Set the destination of the NavMeshAgent to the target's position
+                navMeshAgent.SetDestination(target.position);
 
 
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+                // Check if the enemy is currently stopped
+                if (isStopped)
+                {
+                    // Resume movement after the stop duration
+                    StartCoroutine(ResumeMovement(stopDuration));
+                }
+            }
+        }
+
+        // Update the attack timer
+        if (!canAttack)
+        {
+            attackTimer += Time.deltaTime;
+
+            // Check if the cooldown period has elapsed
+            if (attackTimer >= attackCooldown)
+            {
+                canAttack = true;
+                attackTimer = 0f;
+            }
         }
     }
 
-    private void ResetAttack()
+    private void Attack()
     {
-        alreadyAttacked = false;
+        // Perform attack logic here
+        Debug.Log("Enemy attacks the target!");
+
+        // Apply force to the target
+        Rigidbody targetRigidbody = target.GetComponent<Rigidbody>();
+        if (targetRigidbody != null)
+        {
+            Vector3 direction = (target.position - transform.position).normalized;
+            targetRigidbody.AddForce(direction * attackForce, ForceMode.Impulse);
+        }
+        canAttack = false;
+
+        // Stop the enemy's movement
+        StopMovement();
     }
 
-    public void TakeDamage(int damage)
+    private void StopMovement()
     {
-        health -= damage;
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        // Stop the enemy's movement
+        navMeshAgent.isStopped = true;
+
+        // Set the flag to indicate that the enemy is currently stopped
+        isStopped = true;
     }
 
-    private void DestroyEnemy()
+    private IEnumerator ResumeMovement(float duration)
     {
-        Destroy(gameObject);
+        // Wait for the stop duration
+        yield return new WaitForSeconds(duration);
+
+        // Resume the enemy's movement
+        navMeshAgent.isStopped = false;
+
+        // Reset the flag to indicate that the enemy is no longer stopped
+        isStopped = false;
+
+        // Enable the ability to attack again
+        canAttack = true;
     }
 }
