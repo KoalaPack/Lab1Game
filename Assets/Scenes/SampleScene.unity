@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 45ec70a3af62295468d524ed605dfd6e, type: 2}
+--- !u!1 &385785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 385786}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &385786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385785}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.24, y: 17.91, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &239930335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -212,7 +243,7 @@ Rigidbody:
   m_GameObject: {fileID: 239930336}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -392,8 +423,8 @@ GameObject:
   - component: {fileID: 514721039}
   - component: {fileID: 514721038}
   - component: {fileID: 514721037}
-  - component: {fileID: 514721042}
   - component: {fileID: 514721041}
+  - component: {fileID: 514721042}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -511,26 +542,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 514721036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adbb92b83abd81c48bdcd8d92c3ad4c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 44bcc376d6912d24f8a85906541d73c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 514721041}
-  player: {fileID: 239930341}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 2147483647
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 0
-  health: 10
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
-  timeBetweenAttacks: 0.5
-  projectile: {fileID: 714199877}
-  sightRange: 20
-  attackRange: 12
-  playerInSightRange: 0
-  playerInAttackRange: 0
+  target: {fileID: 239930341}
+  movementSpeed: 4
+  attackRange: 2
+  attackDamage: 5
+  attackForce: 1
+  attackCooldown: 1
+  attackTimer: 10
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
