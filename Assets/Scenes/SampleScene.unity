@@ -252,6 +252,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c070c9654cd9eea4c8b1cb12f7d7c8e9, type: 3}
   m_PrefabInstance: {fileID: 239930335}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &239930342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239930336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00679245bb42f174bad397d1e7304585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationClip: {fileID: 0}
+  activationKey: 106
+  cooldownDuration: 1
 --- !u!1 &248792755
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +409,7 @@ GameObject:
   - component: {fileID: 514721037}
   - component: {fileID: 514721041}
   - component: {fileID: 514721042}
+  - component: {fileID: 514721043}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -518,10 +534,23 @@ MonoBehaviour:
   movementSpeed: 4
   attackRange: 2
   attackDamage: 5
-  attackForce: 2
+  attackForce: 1
   attackTimer: 10
   attackCooldown: 3
   stopDuration: 1
+--- !u!114 &514721043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514721036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744781bd2994d2a4183e288c90721a2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

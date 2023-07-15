@@ -16,7 +16,7 @@ public class EnemyAi : MonoBehaviour
     private bool canAttack = true; // Flag to indicate if the enemy can attack
     private bool isStopped = false; // Flag to indicate if the enemy is currently stopped
 
-    public float attackTimer = 0f; // Timer to track the cooldown duration
+    public float attackTimer = 3f; // Timer to track the cooldown duration
     public float attackCooldown = 2f; // The cooldown duration between attacks
     public float stopDuration = 1f; // The duration the enemy stops before resuming movement
 
@@ -62,7 +62,7 @@ public class EnemyAi : MonoBehaviour
             if (attackTimer >= attackCooldown)
             {
                 canAttack = true;
-                attackTimer = 0f;
+                attackTimer = 3f;
             }
         }
     }

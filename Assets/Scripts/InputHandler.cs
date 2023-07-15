@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This script is needed for the TopDownCharacterMover script to fuction and should not be deleted
+
 public class InputHandler : MonoBehaviour
 {
     public Vector2 InputVector { get; private set; }
