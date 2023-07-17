@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PunchDamage : MonoBehaviour
 {
-    public int damageAmount = 1; // The amount of damage the weapon deals
+    public int damageAmount = 2; // The amount of damage the weapon deals
 
     private EnemyHealth enemyHealth; // Reference to the EnemyHealth script
     private bool isDamaging = false; // Flag to prevent continuous damage
@@ -18,7 +18,7 @@ public class PunchDamage : MonoBehaviour
             enemyHealth = other.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                Debug.Log("Enemy Touch");
+
             }
         }
     }

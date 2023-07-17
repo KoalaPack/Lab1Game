@@ -6,6 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(InputHandler))]
 public class TopDownCharacterMover : MonoBehaviour
 {
+    private void Start()
+    {
+
+
+    }
+
     private InputHandler _input;
 
     [SerializeField]
