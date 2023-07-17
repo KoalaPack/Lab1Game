@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 100; // The maximum health of the enemy
+    public int maxHealth = 3; // The maximum health of the enemy
     private int currentHealth; // The current health of the enemy
 
     private void Start()
@@ -23,7 +23,6 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        // Ppawn particles here
         Debug.Log("Enemy has been defeated!");
 
         // Destroy the enemy GameObject

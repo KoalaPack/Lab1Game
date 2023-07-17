@@ -70,7 +70,7 @@ public class EnemyAi : MonoBehaviour
     private void Attack()
     {
         // Perform attack logic here
-        Debug.Log("Enemy attacks the target!");
+       // Debug.Log("Enemy attacks the target!");
 
         // Apply force to the target
         Rigidbody targetRigidbody = target.GetComponent<Rigidbody>();
