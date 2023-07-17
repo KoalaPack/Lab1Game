@@ -42,7 +42,9 @@ public class EnemySpawning : MonoBehaviour
 
     private void StartNewWave()
     {
-        enemiesInWave *= 2; // Double the number of enemies for the next wave
+        // Double the number of enemies for the next wave
+        enemiesInWave = currentWave; 
+        enemiesInWave *= 2;
         Debug.Log("Starting Wave " + currentWave + " with " + enemiesInWave + " enemies.");
 
         // Spawn enemies for the current wave
