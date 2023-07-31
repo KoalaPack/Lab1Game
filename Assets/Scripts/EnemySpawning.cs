@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using Unity.VisualScripting;
+using TMPro;
 
 public class EnemySpawning : MonoBehaviour
 {
@@ -10,6 +13,8 @@ public class EnemySpawning : MonoBehaviour
     private int currentWave = 1; // The current wave number
     private int enemiesInWave = 1; // The number of enemies to spawn in the current wave
     private bool isSpawningWave = false; // Flag to check if a wave is currently spawning
+
+    public TMP_Text wavesText;
 
     private void Start()
     {
@@ -46,7 +51,7 @@ public class EnemySpawning : MonoBehaviour
         enemiesInWave = currentWave; 
         enemiesInWave *= 2;
         Debug.Log("Starting Wave " + currentWave + " with " + enemiesInWave + " enemies.");
-
+        wavesText.text = "Wave: " + currentWave;
         // Spawn enemies for the current wave
         for (int i = 0; i < enemiesInWave; i++)
         {
@@ -58,5 +63,6 @@ public class EnemySpawning : MonoBehaviour
         }
 
         currentWave++;
+
     }
 }

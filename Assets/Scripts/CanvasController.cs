@@ -10,7 +10,7 @@ public class CanvasController : MonoBehaviour
 {
     public GameObject GameScreen;
     public GameObject PlayAgainScreen;
-    public GameObject YouLoose;
+    public GameObject YouLose;
     public GameObject Player;
 
     public float menuTimeDelay = 2f; // Time between waves in seconds
@@ -22,7 +22,7 @@ public class CanvasController : MonoBehaviour
     {
         GameScreen.SetActive(true);
         PlayAgainScreen.SetActive(false);
-        YouLoose.SetActive(false);
+        YouLose.SetActive(false);
     }
 
     private void Update()
@@ -31,7 +31,7 @@ public class CanvasController : MonoBehaviour
         if (Player == null && !methodCalled)
         {
             GameScreen.SetActive(false);
-            YouLoose.SetActive(true);
+            YouLose.SetActive(true);
             StartCoroutine(WaitAndContinue());
             methodCalled = true;
         }
@@ -46,7 +46,7 @@ public class CanvasController : MonoBehaviour
 
     private void PlayAgain()
     {
-        YouLoose.SetActive(false);
+        YouLose.SetActive(false);
         PlayAgainScreen.SetActive(true);
     }
 
