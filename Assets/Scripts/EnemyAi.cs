@@ -21,6 +21,8 @@ public class EnemyAi : MonoBehaviour
     public float stopDuration = 1f; // The duration the enemy stops before resuming movement
 
 
+
+
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
@@ -83,6 +85,23 @@ public class EnemyAi : MonoBehaviour
 
         // Stop the enemy's movement
         StopMovement();
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        //If attack tags triggers enemy tag stop the movement of the enemy for .3 seconds
+        if (other.CompareTag("Attack"))
+        {
+            Debug.Log("Enemy Stun");
+            navMeshAgent.isStopped = true;
+            StartCoroutine(WaitAndContinue());
+        }
+    }
+
+    private System.Collections.IEnumerator WaitAndContinue()
+    {
+        // Wait for .5 seconds before continuing
+        yield return new WaitForSeconds(0.5f);
+        navMeshAgent.isStopped = false;
     }
 
     private void StopMovement()
