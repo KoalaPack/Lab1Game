@@ -19,7 +19,7 @@ public class PunchAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("j") && cooldownTimer == true)
+        if (Input.GetKeyDown(KeyCode.Space) && cooldownTimer == true)
         {
             anim.Play("PushAttack");
             StartCoroutine(WaitAndContinue());
