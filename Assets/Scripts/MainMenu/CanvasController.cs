@@ -17,12 +17,22 @@ public class CanvasController : MonoBehaviour
 
     private bool methodCalled = false; // Flag to track if the method has been called
 
+    // Pause Menu
+    public GameObject PauseScreen;
+    public GameObject OptionsScreen;
+
     // Start is called before the first frame update
     void Start()
     {
         GameScreen.SetActive(true);
+
+        // End Game Menu
         PlayAgainScreen.SetActive(false);
         YouLose.SetActive(false);
+
+        // Pause Menu
+        PauseScreen.SetActive(false);
+        OptionsScreen.SetActive(false);
     }
 
     private void Update()
@@ -34,6 +44,12 @@ public class CanvasController : MonoBehaviour
             YouLose.SetActive(true);
             StartCoroutine(WaitAndContinue());
             methodCalled = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameScreen.SetActive(false);
+            PauseScreen.SetActive(true);
         }
     }
 
@@ -60,10 +76,23 @@ public class CanvasController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    // Pause Button Below vvv
+    // Resume Button to resume the game
+    public void Resume()
+    {
 
-    //Wait 5 seconds and then display would you like to play again menu
-    //If the player wants to play again then restart the scene
-    //Else If the player doesnt call the script to change scenes
+    }
 
+    // Options button to view keybinds and audio
+    public void Options()
+    {
+
+    }
+
+    // Main menu button
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
 

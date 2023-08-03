@@ -4,37 +4,74 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class SceneController : MonoBehaviour
 {
     //Different menues
     public GameObject mainMenu;
-    public GameObject options;
+
+    //Get the Animation
+    public Animator animOpen;
+    public Animator animClose;
+    private bool optionButtonClicked = false;
+    private bool optionsButton = false;
+    public GameObject Music;
+    public GameObject SFX;
 
     //Setting all scenes to their start position
     public void Start()
     {
         mainMenu.SetActive(true);
-        options.SetActive(false);
+        optionButtonClicked = false;
+        animOpen = GetComponent<Animator>();
+        animClose = GetComponent<Animator>();
+        Music.SetActive(false);
+        SFX.SetActive(false);
+        optionsButton = false;
     }
 
-    //Deactivates the menu UI layer and activates the options layer
-    public void OptionButton()
+    public void Options()
     {
-        mainMenu.SetActive(false);
-        options.SetActive(true);
+        optionsButton = true;
+        Debug.Log("Options button clicked");
     }
-    //Deactivates the menu UI layer and activates the level select layer
-    public void StartButton()
+    public void Update()
     {
-        SceneManager.LoadScene("SampleScene");
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
+        if (optionsButton == true && optionButtonClicked == false)
+        {
+            optionsButton = false;
+            Music.SetActive(true);
+            SFX.SetActive(true);
+            animOpen.Play("OptionsOpen");
+            Debug.Log("Animation open");
+            optionButtonClicked = true;
+        }
+        if (optionsButton == true && optionButtonClicked == true)
+        {
+            optionsButton = false;
+            animClose.Play("OptionsClose");
+            Debug.Log("Animation close");
+            optionButtonClicked = false;
+        }
     }
 
-    public void backToMenu()
-    {
-        mainMenu.SetActive(true);
-        options.SetActive(false);
-    }
+    //private System.Collections.IEnumerator WaitAndContinue()
+    //{
+
+    //    yield return new WaitForSeconds(1f);
+    //    AbleToClickOptionsButton();
+    //}
+
+    //private void AbleToClickOptionsButton()
+    //{
+    //    optionButtonClicked = true;
+    //}
 
     //Will change our scene to the string passed in 
     public void ChangeScene(string _sceneName)
@@ -48,29 +85,18 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    //Loads Main Menu Scene
-    public void ToTitleGame()
-    {
-        SceneManager.LoadScene("Title");
-    }
-
-    //Loads Normal Game Scene
-    public void ToNormalGame()
-    {
-        SceneManager.LoadScene("NormalGame");
-    }
-
-    //Loads Tron Game Scene
-    public void ToTronGame()
-    {
-        SceneManager.LoadScene("TronGame");
-    }
-
     //Gets the active scene name
     public string GetSceneName()
     {
         return SceneManager.GetActiveScene().name;
     }
+
+
+
+
+
+
+
 
     //Quit Button
     public void QuitGame()
