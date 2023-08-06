@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,10 +22,31 @@ public class CanvasController : MonoBehaviour
     public GameObject PauseScreen;
     public GameObject OptionsScreen;
 
+    // Timer
+    public TMP_Text timerText;
+    private Timer timer; //Reference to timer script
+
+
+    // Score multiplier
+    public TMP_Text scoreText;
+    private float scoreTotal = 0f;
+
+
+
+    // Waves
+    public TMP_Text wavesText;
+    private EnemySpawning waveValue; //Reference to timer script
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         GameScreen.SetActive(true);
+
+        //Get the timer object and start the timer
+        timer = FindObjectOfType<Timer>();
+        timer.StartTimer();
 
         // End Game Menu
         PlayAgainScreen.SetActive(false);
@@ -33,10 +55,21 @@ public class CanvasController : MonoBehaviour
         // Pause Menu
         PauseScreen.SetActive(false);
         OptionsScreen.SetActive(false);
+
+        // Score 
+        scoreTotal = 0f;
+
+        // Waves
+        GameObject EnemySpawning = GameObject.Find("EnemySpawning");
+        waveValue = EnemySpawning.GetComponent<EnemySpawning>();
+
+        int value = waveValue.currentWave;
+        Debug.Log("wave" + value);
     }
 
     private void Update()
     {
+        timerText.text = "Time: " + timer.GetTime().ToString("F0");
 
         if (Player == null && !methodCalled)
         {
@@ -44,6 +77,9 @@ public class CanvasController : MonoBehaviour
             YouLose.SetActive(true);
             StartCoroutine(WaitAndContinue());
             methodCalled = true;
+
+            //Stop the timer
+            timer.StopTimer();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -51,6 +87,9 @@ public class CanvasController : MonoBehaviour
             GameScreen.SetActive(false);
             PauseScreen.SetActive(true);
         }
+
+        wavesText.text = "Wave: " + waveValue;
+        scoreText.text = "Score: " + scoreTotal;
     }
 
     private System.Collections.IEnumerator WaitAndContinue()

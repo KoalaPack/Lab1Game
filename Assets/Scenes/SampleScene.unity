@@ -1532,6 +1532,7 @@ GameObject:
   - component: {fileID: 763342202}
   - component: {fileID: 763342201}
   - component: {fileID: 763342200}
+  - component: {fileID: 763342205}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1556,8 +1557,11 @@ MonoBehaviour:
   YouLose: {fileID: 754347592}
   Player: {fileID: 919132149259449998}
   menuTimeDelay: 2
-  PauseScreen: {fileID: 0}
+  PauseScreen: {fileID: 1284891979}
   OptionsScreen: {fileID: 0}
+  timerText: {fileID: 1085869835}
+  scoreText: {fileID: 1442664811}
+  wavesText: {fileID: 1742212551}
 --- !u!114 &763342201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1643,6 +1647,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &763342205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763342199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd5fec64ff2cda43ac5da4b85f89e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTime: 0
 --- !u!1 &852720083
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,7 +2598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1284891980
 RectTransform:
   m_ObjectHideFlags: 0
