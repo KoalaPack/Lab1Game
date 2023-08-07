@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 3; // The maximum health of the enemy
-    private int currentHealth; // The current health of the enemy
+    public int currentHealth; // The current health of the enemy
 
     public List<MeshRenderer> meshColours;
 
@@ -13,16 +13,26 @@ public class EnemyHealth : MonoBehaviour
     public Material hitMat;
 
     public GameObject regularEnemy;
-    public GameObject explodeEnemy;
+    public List<GameObject> explodeEnemy;
 
     public Animator enemyExplode;
+
+    public float pauseDuration = 9f;
+
+    public GameObject enemyAnimationController;
+
 
     private void Start()
     {
         currentHealth = maxHealth; // Set the initial health to the maximum
         regularEnemy.SetActive(true);
-        explodeEnemy.SetActive(false);
-        enemyExplode = GetComponent<Animator>();
+        foreach (var enemyGO in explodeEnemy)
+        {
+            enemyGO.SetActive(false);
+        }
+        enemyAnimationController = GameObject.Find("EnemyExplode");
+
+        //enemyExplode = GetComponent<Animator>();
     }
 
     public void TakeDamage(int damageAmount)
@@ -33,18 +43,23 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             regularEnemy.SetActive(false);
-            explodeEnemy.SetActive(true);
-            enemyExplode.Play("EnemyExplodeAnim");
-            StartCoroutine(pauseBeforeDeath());
+            foreach (var enemyGO in explodeEnemy)
+            {
+                enemyGO.SetActive(true);
+            }
 
-            Die();
+            enemyAnimationController.GetComponent<Animator>().Play("EnemyExplodeAnim");
+            StartCoroutine(PauseBeforeDeathCoroutine());
+
         }
     }
 
-    private IEnumerator pauseBeforeDeath()
+    private IEnumerator PauseBeforeDeathCoroutine()
     {
-        // Wait for the stop duration
-        yield return new WaitForSeconds(3f);
+        // Wait for the specified duration before calling Die()
+        yield return new WaitForSeconds(pauseDuration);
+
+        Die();
     }
 
     private void Die()

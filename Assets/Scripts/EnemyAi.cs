@@ -20,9 +20,14 @@ public class EnemyAi : MonoBehaviour
 
     public string targetTag = "Player"; // The tag of the target to follow and attack
 
+    private EnemyHealth healthValue;
+
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
+
+        healthValue = GetComponent<EnemyHealth>();
+        int value = healthValue.currentHealth;
     }
 
     private void Update()
@@ -65,6 +70,7 @@ public class EnemyAi : MonoBehaviour
                 attackTimer = 3f;
             }
         }
+        CheckEnemyHealth();
     }
 
     private void Attack()
@@ -129,5 +135,14 @@ public class EnemyAi : MonoBehaviour
 
         // Enable the ability to attack again
         canAttack = true;
+    }
+
+    private void CheckEnemyHealth()
+    {
+        if (healthValue = null)
+        {
+            Debug.Log("Enemyhealth 0");
+            navMeshAgent.isStopped = true;
+        }
     }
 }
