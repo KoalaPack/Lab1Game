@@ -4,14 +4,12 @@ using System.Collections;
 
 public class EnemyAi : MonoBehaviour
 {
-    public Transform target; // The target the enemy will move towards and attack
     public float movementSpeed = 5f; // The movement speed of the enemy
     public float attackRange = 2f; // The range at which the enemy can attack the target
     public int attackDamage = 10; // The amount of damage the enemy inflicts on the target
     public float attackForce = 10f; // The force applied to the target on attack
 
     private NavMeshAgent navMeshAgent; // Reference to the NavMeshAgent component
-
 
     private bool canAttack = true; // Flag to indicate if the enemy can attack
     private bool isStopped = false; // Flag to indicate if the enemy is currently stopped
@@ -20,8 +18,7 @@ public class EnemyAi : MonoBehaviour
     public float attackCooldown = 2f; // The cooldown duration between attacks
     public float stopDuration = 1f; // The duration the enemy stops before resuming movement
 
-
-
+    public string targetTag = "Player"; // The tag of the target to follow and attack
 
     private void Start()
     {
@@ -30,10 +27,12 @@ public class EnemyAi : MonoBehaviour
 
     private void Update()
     {
-        if (target != null)
+        // Find the target using the specified tag
+        GameObject targetObject = GameObject.FindGameObjectWithTag(targetTag);
+        if (targetObject != null)
         {
             // Calculate the distance to the target
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            float distanceToTarget = Vector3.Distance(transform.position, targetObject.transform.position);
 
             // If within attack range, initiate an attack
             if (distanceToTarget <= attackRange && canAttack)
@@ -43,8 +42,7 @@ public class EnemyAi : MonoBehaviour
             else
             {
                 // Set the destination of the NavMeshAgent to the target's position
-                navMeshAgent.SetDestination(target.position);
-
+                navMeshAgent.SetDestination(targetObject.transform.position);
 
                 // Check if the enemy is currently stopped
                 if (isStopped)
@@ -72,23 +70,28 @@ public class EnemyAi : MonoBehaviour
     private void Attack()
     {
         // Perform attack logic here
-       // Debug.Log("Enemy attacks the target!");
+        // Debug.Log("Enemy attacks the target!");
 
         // Apply force to the target
-        Rigidbody targetRigidbody = target.GetComponent<Rigidbody>();
-        if (targetRigidbody != null)
+        GameObject targetObject = GameObject.FindGameObjectWithTag(targetTag);
+        if (targetObject != null)
         {
-            Vector3 direction = (target.position - transform.position).normalized;
-            targetRigidbody.AddForce(direction * attackForce, ForceMode.Impulse);
+            Rigidbody targetRigidbody = targetObject.GetComponent<Rigidbody>();
+            if (targetRigidbody != null)
+            {
+                Vector3 direction = (targetObject.transform.position - transform.position).normalized;
+                targetRigidbody.AddForce(direction * attackForce, ForceMode.Impulse);
+            }
         }
         canAttack = false;
 
         // Stop the enemy's movement
         StopMovement();
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        //If attack tags triggers enemy tag stop the movement of the enemy for .3 seconds
+        // If attack tags triggers enemy tag stop the movement of the enemy for .3 seconds
         if (other.CompareTag("Attack"))
         {
             Debug.Log("Enemy Stun");
@@ -97,7 +100,7 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator WaitAndContinue()
+    private IEnumerator WaitAndContinue()
     {
         // Wait for .5 seconds before continuing
         yield return new WaitForSeconds(0.5f);

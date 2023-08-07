@@ -20,7 +20,6 @@ public class CanvasController : MonoBehaviour
 
     // Pause Menu
     public GameObject PauseScreen;
-    public GameObject OptionsScreen;
 
     // Timer
     public TMP_Text timerText;
@@ -30,12 +29,6 @@ public class CanvasController : MonoBehaviour
     // Score multiplier
     public TMP_Text scoreText;
     private float scoreTotal = 0f;
-
-
-
-    // Waves
-    public TMP_Text wavesText;
-    private EnemySpawning waveValue; //Reference to timer script
 
 
 
@@ -52,19 +45,10 @@ public class CanvasController : MonoBehaviour
         PlayAgainScreen.SetActive(false);
         YouLose.SetActive(false);
 
-        // Pause Menu
-        PauseScreen.SetActive(false);
-        OptionsScreen.SetActive(false);
+        // Pause
 
         // Score 
         scoreTotal = 0f;
-
-        // Waves
-        GameObject EnemySpawning = GameObject.Find("EnemySpawning");
-        waveValue = EnemySpawning.GetComponent<EnemySpawning>();
-
-        int value = waveValue.currentWave;
-        Debug.Log("wave" + value);
     }
 
     private void Update()
@@ -87,9 +71,6 @@ public class CanvasController : MonoBehaviour
             GameScreen.SetActive(false);
             PauseScreen.SetActive(true);
         }
-
-        wavesText.text = "Wave: " + waveValue;
-        scoreText.text = "Score: " + scoreTotal;
     }
 
     private System.Collections.IEnumerator WaitAndContinue()
@@ -118,12 +99,6 @@ public class CanvasController : MonoBehaviour
     // Pause Button Below vvv
     // Resume Button to resume the game
     public void Resume()
-    {
-
-    }
-
-    // Options button to view keybinds and audio
-    public void Options()
     {
 
     }
