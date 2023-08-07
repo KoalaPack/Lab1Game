@@ -4302,6 +4302,7 @@ MonoBehaviour:
   wavesText: {fileID: 1742212551}
   waveWaitText: {fileID: 118602017}
   wavesAnim: {fileID: 763342206}
+  waveTotal: 1
 --- !u!4 &1850748723
 Transform:
   m_ObjectHideFlags: 0

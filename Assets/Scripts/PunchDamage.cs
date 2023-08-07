@@ -28,6 +28,7 @@ public class PunchDamage : MonoBehaviour
         // Check if the collided object is an enemy and was previously damaging
         if (other.CompareTag("Enemy") && isDamaging)
         {
+            other.GetComponent<EnemyHealth>().ChangeEnemyMat();
             isDamaging = false; // Reset the flag to allow damage again
 
             // Deal damage to the enemy

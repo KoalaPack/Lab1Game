@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using TMPro;
+using System.Threading;
 
 public class EnemySpawning : MonoBehaviour
 {
@@ -17,10 +18,14 @@ public class EnemySpawning : MonoBehaviour
     public TMP_Text wavesText;
     public TMP_Text waveWaitText;
     public Animator wavesAnim;
-
+    public int waveTotal = 1;
 
     private void Start()
     {
+        wavesAnim.Play("WaveInAndOut"); // Plays wave animation
+        wavesText.text = "Wave: " + waveTotal ;
+        waveWaitText.text = "Wave: " + currentWave;
+
         StartNewWave();
 
 
@@ -32,6 +37,9 @@ public class EnemySpawning : MonoBehaviour
         {
             Debug.Log("animationplaying");
             wavesAnim.Play("WaveInAndOut"); // Plays wave animation
+            waveTotal ++;
+            wavesText.text = "Wave: " + currentWave;
+            waveWaitText.text = "Wave: " + currentWave;
             StartCoroutine(StartNewWaveWithDelay(timeBetweenWaves));
         }
     }
@@ -57,11 +65,9 @@ public class EnemySpawning : MonoBehaviour
     private void StartNewWave()
     {
         // Double the number of enemies for the next wave
-        enemiesInWave = currentWave; 
+        enemiesInWave = currentWave;
         enemiesInWave *= 2;
-        Debug.Log("Starting Wave " + currentWave + " with " + enemiesInWave + " enemies.");
-        wavesText.text = "Wave: " + currentWave;
-        waveWaitText.text = "Wave: " + currentWave;
+
         // Spawn enemies for the current wave
         for (int i = 0; i < enemiesInWave; i++)
         {
@@ -71,7 +77,6 @@ public class EnemySpawning : MonoBehaviour
 
             Instantiate(enemyPrefab, spawnPosition, spawnRotation);
         }
-
         currentWave++;
 
     }
