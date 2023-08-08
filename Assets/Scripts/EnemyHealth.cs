@@ -21,15 +21,16 @@ public class EnemyHealth : MonoBehaviour
 
     public GameObject enemyAnimationController;
 
+    public GameObject EnemyExplodeObject;
+
+
+
 
     private void Start()
     {
         currentHealth = maxHealth; // Set the initial health to the maximum
         regularEnemy.SetActive(true);
-        foreach (var enemyGO in explodeEnemy)
-        {
-            enemyGO.SetActive(false);
-        }
+        EnemyExplodeObject.SetActive(false);
         enemyAnimationController = GameObject.Find("EnemyExplode");
 
         //enemyExplode = GetComponent<Animator>();
@@ -45,16 +46,15 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             regularEnemy.SetActive(false);
-            foreach (var enemyGO in explodeEnemy)
-            {
-                enemyGO.SetActive(true);
-            }
+            enemyAnimationController.SetActive(true );
 
 
-            //enemyAnimationController.GetComponent<Animator>().Play("EnemyExplodeAnim");
+            enemyAnimationController.GetComponent<Animator>().Play("EnemyExplodeAnim");
             StartCoroutine(PauseBeforeDeathCoroutine());
 
+
         }
+
     }
 
     private IEnumerator PauseBeforeDeathCoroutine()
@@ -72,7 +72,9 @@ public class EnemyHealth : MonoBehaviour
         // Destroy the enemy GameObject
         Destroy(gameObject);
     }
-    IEnumerator WaitForMatChange()
+
+
+IEnumerator WaitForMatChange()
     {
         foreach(MeshRenderer render in meshColours)
         {

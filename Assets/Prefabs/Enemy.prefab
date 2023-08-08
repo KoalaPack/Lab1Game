@@ -2891,7 +2891,7 @@ GameObject:
   - component: {fileID: 6625115335209627366}
   - component: {fileID: 942782343717394107}
   m_Layer: 0
-  m_Name: EnemyExplode
+  m_Name: EnemyExplodeFinal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3395,37 +3395,11 @@ MonoBehaviour:
   regularMat: {fileID: 2100000, guid: fdce9d07bdcd9e048a76f5fee3e06aef, type: 2}
   hitMat: {fileID: 2100000, guid: 1556fbad3b0d38b4589b2736988cbe71, type: 2}
   regularEnemy: {fileID: 3573324773070659590}
-  explodeEnemy:
-  - {fileID: 4865215031007871921}
-  - {fileID: 4630753754862519471}
-  - {fileID: 2496083234292286113}
-  - {fileID: 8608925140038683382}
-  - {fileID: 3059757491834449652}
-  - {fileID: 789340427108188055}
-  - {fileID: 2627687037557440979}
-  - {fileID: 2972639708076387756}
-  - {fileID: 4221090923807992208}
-  - {fileID: 3892156740279750890}
-  - {fileID: 8287889309118733262}
-  - {fileID: 273930406012144218}
-  - {fileID: 2500534357114044694}
-  - {fileID: 7928023809462885989}
-  - {fileID: 2283820078338927884}
-  - {fileID: 7902231944210996739}
-  - {fileID: 3845564669832453172}
-  - {fileID: 9204505622091554842}
-  - {fileID: 1582008885846429092}
-  - {fileID: 3004748006784182591}
-  - {fileID: 2103998482314263648}
-  - {fileID: 298557293733648150}
-  - {fileID: 3885862565009500657}
-  - {fileID: 608587016626099481}
-  - {fileID: 4340915961926418429}
-  - {fileID: 5927271268534167706}
-  - {fileID: 7293210186634447635}
+  explodeEnemy: []
   enemyExplode: {fileID: 942782343717394107}
   pauseDuration: 3
   enemyAnimationController: {fileID: 5817230043735782492}
+  EnemyExplodeObject: {fileID: 5817230043735782492}
 --- !u!65 &7528377725122295425
 BoxCollider:
   m_ObjectHideFlags: 0

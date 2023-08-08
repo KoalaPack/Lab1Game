@@ -22,6 +22,7 @@ public class EnemyAi : MonoBehaviour
 
     private EnemyHealth healthValue;
 
+
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
@@ -142,9 +143,6 @@ public class EnemyAi : MonoBehaviour
         if (healthValue = null)
         {
             Debug.Log("Enemyhealth 0");
-            navMeshAgent.isStopped = true;
-            canAttack = false;
-            isStopped = true;
         }
     }
 }
