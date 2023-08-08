@@ -37,8 +37,10 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
-        currentHealth -= damageAmount; // Decrease the current health by the damage amount
-
+        if (currentHealth >= 0)
+        {
+            currentHealth -= damageAmount; // Decrease the current health by the damage amount
+        }
         // Check if the enemy has been defeated
         if (currentHealth <= 0)
         {
@@ -48,7 +50,8 @@ public class EnemyHealth : MonoBehaviour
                 enemyGO.SetActive(true);
             }
 
-            enemyAnimationController.GetComponent<Animator>().Play("EnemyExplodeAnim");
+
+            //enemyAnimationController.GetComponent<Animator>().Play("EnemyExplodeAnim");
             StartCoroutine(PauseBeforeDeathCoroutine());
 
         }

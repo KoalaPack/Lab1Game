@@ -143,6 +143,8 @@ public class EnemyAi : MonoBehaviour
         {
             Debug.Log("Enemyhealth 0");
             navMeshAgent.isStopped = true;
+            canAttack = false;
+            isStopped = true;
         }
     }
 }
