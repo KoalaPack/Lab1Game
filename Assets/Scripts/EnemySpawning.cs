@@ -20,15 +20,26 @@ public class EnemySpawning : MonoBehaviour
     public Animator wavesAnim;
     public int waveTotal = 1;
 
+    public TMP_Text scoreText;
+    public int scoreTotal = 0;
+
     private void Start()
     {
         wavesAnim.Play("WaveInAndOut"); // Plays wave animation
         wavesText.text = "Wave: " + waveTotal ;
         waveWaitText.text = "Wave: " + currentWave;
 
+        scoreTotal = 0;
+        StartWait();
+
+
+
+    }
+
+    IEnumerator StartWait()
+    {
+        yield return new WaitForSeconds(3f);
         StartNewWave();
-
-
     }
 
     private void Update()
@@ -42,6 +53,9 @@ public class EnemySpawning : MonoBehaviour
             waveWaitText.text = "Wave: " + currentWave;
             StartCoroutine(StartNewWaveWithDelay(timeBetweenWaves));
         }
+
+
+
     }
 
     private bool AreEnemiesDefeated()
@@ -79,5 +93,7 @@ public class EnemySpawning : MonoBehaviour
         }
         currentWave++;
 
+        scoreTotal = currentWave;
+        scoreText.text = "Wave: " + scoreTotal;
     }
 }

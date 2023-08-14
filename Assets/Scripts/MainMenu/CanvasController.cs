@@ -25,10 +25,7 @@ public class CanvasController : MonoBehaviour
     public TMP_Text timerText;
     private Timer timer; //Reference to timer script
 
-
-    // Score multiplier
-    public TMP_Text scoreText;
-    private float scoreTotal = 0f;
+    public float deathScreenWaitTime = 2f;
 
 
 
@@ -47,8 +44,6 @@ public class CanvasController : MonoBehaviour
 
         // Pause
 
-        // Score 
-        scoreTotal = 0f;
     }
 
     private void Update()
@@ -75,14 +70,14 @@ public class CanvasController : MonoBehaviour
 
     private System.Collections.IEnumerator WaitAndContinue()
     {
+        PauseScreen.SetActive(false);
         // Wait for 5 seconds before continuing
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(deathScreenWaitTime);
         PlayAgain();
     }
 
     private void PlayAgain()
     {
-        YouLose.SetActive(false);
         PlayAgainScreen.SetActive(true);
     }
 
