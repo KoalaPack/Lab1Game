@@ -3352,7 +3352,7 @@ MonoBehaviour:
   movementSpeed: 4
   attackRange: 2
   attackDamage: 1
-  attackForce: 0.5
+  attackForce: 0.2
   attackTimer: 10
   attackCooldown: 3
   stopDuration: 1
@@ -3394,13 +3394,11 @@ MonoBehaviour:
   regularMat: {fileID: 2100000, guid: fdce9d07bdcd9e048a76f5fee3e06aef, type: 2}
   hitMat: {fileID: 2100000, guid: 1556fbad3b0d38b4589b2736988cbe71, type: 2}
   regularEnemy: {fileID: 3573324773070659590}
-  pauseDuration: 2
+  pauseDuration: 0.5
   enemyAnimationController: {fileID: 5817230043735782492}
   EnemyExplodeObject: {fileID: 5817230043735782492}
   enemyAiScript: {fileID: -2720343346006592320}
   prefabGameObject: {fileID: 7528377725122295449}
-  targetMaterial: {fileID: 2100000, guid: f0b4040e48cc46640a18f200a530bb39, type: 2}
-  fadeDuration: 1
 --- !u!65 &7528377725122295425
 BoxCollider:
   m_ObjectHideFlags: 0
