@@ -3395,7 +3395,7 @@ MonoBehaviour:
   regularMat: {fileID: 2100000, guid: fdce9d07bdcd9e048a76f5fee3e06aef, type: 2}
   hitMat: {fileID: 2100000, guid: 1556fbad3b0d38b4589b2736988cbe71, type: 2}
   regularEnemy: {fileID: 3573324773070659590}
-  pauseDuration: 0.5
+  pauseDuration: 2
   enemyAnimationController: {fileID: 5817230043735782492}
   EnemyExplodeObject: {fileID: 5817230043735782492}
   enemyAiScript: {fileID: -2720343346006592320}

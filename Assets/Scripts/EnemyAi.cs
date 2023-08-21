@@ -22,6 +22,8 @@ public class EnemyAi : MonoBehaviour
 
     private EnemyHealth healthValue;
 
+    private Rigidbody rb;
+
 
     private void Start()
     {
@@ -29,6 +31,9 @@ public class EnemyAi : MonoBehaviour
 
         healthValue = GetComponent<EnemyHealth>();
         int value = healthValue.currentHealth;
+
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
     }
 
     private void Update()
@@ -62,6 +67,10 @@ public class EnemyAi : MonoBehaviour
         // Update the attack timer
         if (!canAttack)
         {
+            //Rigidbody is switched on 
+            rb.isKinematic = false;
+
+            //cooldown timer starts
             attackTimer += Time.deltaTime;
 
             // Check if the cooldown period has elapsed
