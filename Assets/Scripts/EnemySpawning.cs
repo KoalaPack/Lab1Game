@@ -1,13 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 using TMPro;
-using System.Threading;
 
 public class EnemySpawning : MonoBehaviour
 {
-    public GameObject enemyPrefab; // The enemy prefab to spawn
+    public GameObject[] enemyPrefabs; // Array of enemy prefabs to choose from
     public GameObject[] spawnPoints; // An array of spawn point GameObjects
     public float timeBetweenWaves = 3.5f; // Time between waves in seconds
 
@@ -26,14 +24,11 @@ public class EnemySpawning : MonoBehaviour
     private void Start()
     {
         wavesAnim.Play("WaveInAndOut"); // Plays wave animation
-        wavesText.text = "Wave: " + waveTotal ;
+        wavesText.text = "Wave: " + waveTotal;
         waveWaitText.text = "Wave: " + currentWave;
 
         scoreTotal = 0;
         StartWait();
-
-
-
     }
 
     IEnumerator StartWait()
@@ -48,22 +43,17 @@ public class EnemySpawning : MonoBehaviour
         {
             Debug.Log("animationplaying");
             wavesAnim.Play("WaveInAndOut"); // Plays wave animation
-            waveTotal ++;
+            waveTotal++;
             wavesText.text = "Wave: " + currentWave;
             waveWaitText.text = "Wave: " + currentWave;
             StartCoroutine(StartNewWaveWithDelay(timeBetweenWaves));
         }
-
-
-
     }
 
     private bool AreEnemiesDefeated()
     {
         // Check if there are no enemies left in the scene
         bool noEnemiesLeft = GameObject.FindGameObjectsWithTag("Enemy").Length == 0;
-
-
         return noEnemiesLeft;
     }
 
@@ -85,11 +75,13 @@ public class EnemySpawning : MonoBehaviour
         // Spawn enemies for the current wave
         for (int i = 0; i < enemiesInWave; i++)
         {
-            int randomIndex = Random.Range(0, spawnPoints.Length);
-            Vector3 spawnPosition = spawnPoints[randomIndex].transform.position;
-            Quaternion spawnRotation = spawnPoints[randomIndex].transform.rotation;
+            int randomPrefabIndex = Random.Range(0, enemyPrefabs.Length);
+            int randomSpawnIndex = Random.Range(0, spawnPoints.Length);
+            Vector3 spawnPosition = spawnPoints[randomSpawnIndex].transform.position;
+            Quaternion spawnRotation = spawnPoints[randomSpawnIndex].transform.rotation;
 
-            Instantiate(enemyPrefab, spawnPosition, spawnRotation);
+            GameObject selectedPrefab = enemyPrefabs[randomPrefabIndex];
+            Instantiate(selectedPrefab, spawnPosition, spawnRotation);
         }
         currentWave++;
 
