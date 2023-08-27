@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -26,6 +27,15 @@ public class EnemyHealth : MonoBehaviour
     //Enemy object to be destroyed
     public GameObject prefabGameObject;
 
+    private NavMeshAgent navMeshAgent;
+
+    public float speedMultiplier = 2.0f;
+
+    public AudioSource audioSource;  // Reference to the Audio Source
+    public AudioClip hitSound;       // Sound to be played when hit
+    public AudioSource audiobreak;  // Reference to the Audio Source
+    public AudioClip deadSound;       // Sound to be played when hit
+
 
     private void Start()
     {
@@ -35,6 +45,9 @@ public class EnemyHealth : MonoBehaviour
         enemyAiScript.enabled = true;
         enemyAnimationController = GameObject.Find("EnemyExplode");
 
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.enabled = true;
+
     }
 
     public void TakeDamage(int damageAmount)
@@ -42,6 +55,8 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth >= 0)
         {
             currentHealth -= damageAmount; // Decrease the current health by the damage amount
+                                           // Play the hit sound
+            audioSource.PlayOneShot(hitSound);
         }
         // Check if the enemy has been defeated
         if (currentHealth <= 0)
@@ -49,12 +64,19 @@ public class EnemyHealth : MonoBehaviour
             regularEnemy.SetActive(false);
             EnemyExplodeObject.SetActive(true);
             enemyAiScript.enabled = false;
+            navMeshAgent.enabled = false;
             // Start the fading coroutine
             //StartCoroutine(FadeMaterial());
-
+            audioSource.PlayOneShot(deadSound);
             StartCoroutine(PauseBeforeDeathCoroutine());
+            Animator enemyAnimator = enemyAnimationController.GetComponent<Animator>();
+            enemyAnimator.speed = speedMultiplier;
+            enemyAnimator.Play("EnemyExplodeAnim");
 
-            enemyAnimationController.GetComponent<Animator>().Play("EnemyExplodeAnim");
+
+            // Turn on isKinematic while the animation plays
+            Rigidbody enemyRigidbody = GetComponent<Rigidbody>();
+            enemyRigidbody.isKinematic = true;
         }
     }
 
@@ -89,6 +111,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public void ChangeEnemyMat()
     {
+
         StartCoroutine(WaitForMatChange());
     }
 }

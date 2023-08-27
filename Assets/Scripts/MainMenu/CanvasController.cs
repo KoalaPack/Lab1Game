@@ -60,12 +60,6 @@ public class CanvasController : MonoBehaviour
             //Stop the timer
             timer.StopTimer();
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            GameScreen.SetActive(false);
-            PauseScreen.SetActive(true);
-        }
     }
 
     private System.Collections.IEnumerator WaitAndContinue()

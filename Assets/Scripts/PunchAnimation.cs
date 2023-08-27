@@ -15,11 +15,13 @@ public class PunchAnimation : MonoBehaviour
     public GameObject particleObject;
     public ParticleSystem attackParticles;
 
+    public AudioSource audioSource;  // Reference to the Audio Source
+    public AudioClip Sound;       // Sound to be played when hit
     private void Start()
     {
         anim = GetComponent<Animator>();
         cooldownTimer = true;
-        particleObject.SetActive(false);
+        particleObject.SetActive(true);
 
     }
 
@@ -29,10 +31,12 @@ public class PunchAnimation : MonoBehaviour
         {
             anim.Play("PushAttack");
             StartCoroutine(WaitAndContinue());
-            StartCoroutine(WaitForParticles());
+            //StartCoroutine(WaitForParticles());
             cooldownTimer = false;
             particleObject.SetActive(true);
             attackParticles.Play();
+            // Play the hit sound
+            audioSource.PlayOneShot(Sound);
         }
     }
     private System.Collections.IEnumerator WaitAndContinue()
@@ -42,12 +46,12 @@ public class PunchAnimation : MonoBehaviour
         AbleToAttack();
     }
 
-    private IEnumerator WaitForParticles()
-    {
-        yield return new WaitForSeconds(1f);
-        particleObject.SetActive(false);
-        attackParticles.Pause();
-    }
+    //private IEnumerator WaitForParticles()
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    particleObject.SetActive(true);
+    //    attackParticles.Pause();
+    //}
 
     private void AbleToAttack()
     {

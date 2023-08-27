@@ -5,13 +5,13 @@ using TMPro;
 
 public class EnemySpawning : MonoBehaviour
 {
-    public GameObject[] enemyPrefabs; // Array of enemy prefabs to choose from
-    public GameObject[] spawnPoints; // An array of spawn point GameObjects
-    public float timeBetweenWaves = 3.5f; // Time between waves in seconds
+    public GameObject[] enemyPrefabs;
+    public GameObject[] spawnPoints;
+    public float timeBetweenWaves = 3.5f;
 
-    public int currentWave = 1; // The current wave number
-    private int enemiesInWave = 1; // The number of enemies to spawn in the current wave
-    private bool isSpawningWave = false; // Flag to check if a wave is currently spawning
+    public int currentWave = 1;
+    private int enemiesInWave = 1;
+    private bool isSpawningWave = false;
 
     public TMP_Text wavesText;
     public TMP_Text waveWaitText;
@@ -21,9 +21,15 @@ public class EnemySpawning : MonoBehaviour
     public TMP_Text scoreText;
     public int scoreTotal = 0;
 
+    public float baseTimeLimit = 10.0f;
+    public float timeLimitIncreasePerWave = 2.0f;
+
+    private float waveStartTime;
+    private float currentWaveTimeLimit;
+
     private void Start()
     {
-        wavesAnim.Play("WaveInAndOut"); // Plays wave animation
+        wavesAnim.Play("WaveInAndOut");
         wavesText.text = "Wave: " + waveTotal;
         waveWaitText.text = "Wave: " + currentWave;
 
@@ -42,7 +48,7 @@ public class EnemySpawning : MonoBehaviour
         if (!isSpawningWave && AreEnemiesDefeated())
         {
             Debug.Log("animationplaying");
-            wavesAnim.Play("WaveInAndOut"); // Plays wave animation
+            wavesAnim.Play("WaveInAndOut");
             waveTotal++;
             wavesText.text = "Wave: " + currentWave;
             waveWaitText.text = "Wave: " + currentWave;
@@ -52,8 +58,13 @@ public class EnemySpawning : MonoBehaviour
 
     private bool AreEnemiesDefeated()
     {
-        // Check if there are no enemies left in the scene
         bool noEnemiesLeft = GameObject.FindGameObjectsWithTag("Enemy").Length == 0;
+
+        if (noEnemiesLeft && isSpawningWave)
+        {
+            CalculateScore();
+        }
+
         return noEnemiesLeft;
     }
 
@@ -68,11 +79,9 @@ public class EnemySpawning : MonoBehaviour
 
     private void StartNewWave()
     {
-        // Double the number of enemies for the next wave
         enemiesInWave = currentWave;
         enemiesInWave *= 2;
 
-        // Spawn enemies for the current wave
         for (int i = 0; i < enemiesInWave; i++)
         {
             int randomPrefabIndex = Random.Range(0, enemyPrefabs.Length);
@@ -85,7 +94,31 @@ public class EnemySpawning : MonoBehaviour
         }
         currentWave++;
 
-        scoreTotal = currentWave;
-        scoreText.text = "Wave: " + scoreTotal;
+        // Update wave timer and time limit
+        currentWaveTimeLimit = baseTimeLimit + (currentWave - 1) * timeLimitIncreasePerWave;
+        waveStartTime = Time.time;
+
+        // Calculate score for the previous wave and add it to the current score
+        CalculateScore();
+        scoreText.text = "Score: " + scoreTotal.ToString();
+        waveWaitText.text = "Wave: " + currentWave;
+    }
+
+    private void CalculateScore()
+    {
+        float waveCompletionTime = Time.time - waveStartTime;
+
+        if (waveCompletionTime <= currentWaveTimeLimit)
+        {
+            scoreTotal += 100;
+        }
+        else
+        {
+            float timeDifference = waveCompletionTime - currentWaveTimeLimit;
+            int timeScore = Mathf.Max(0, Mathf.FloorToInt(100 - (timeDifference * 10) - (currentWave * 5)));
+            scoreTotal += timeScore;
+        }
+
+        scoreText.text = "Score: " + scoreTotal.ToString();
     }
 }

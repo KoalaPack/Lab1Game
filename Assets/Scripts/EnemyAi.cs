@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class EnemyAi : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class EnemyAi : MonoBehaviour
     private EnemyHealth healthValue;
 
     private Rigidbody rb;
+
+    public AudioClip[] sounds;  // Array of sound clips
+    public AudioSource audioSource;
 
 
     private void Start()
@@ -97,6 +101,16 @@ public class EnemyAi : MonoBehaviour
             {
                 Vector3 direction = (targetObject.transform.position - transform.position).normalized;
                 targetRigidbody.AddForce(direction * attackForce, ForceMode.Impulse);
+
+                if (sounds.Length > 0)
+                {
+                    int randomIndex = Random.Range(0, sounds.Length);
+                    AudioClip randomSound = sounds[randomIndex];
+
+                    audioSource.clip = randomSound;
+                    audioSource.Play();
+                }
+
             }
         }
         canAttack = false;

@@ -58,6 +58,7 @@ public class SceneController : MonoBehaviour
             animClose.Play("OptionsClose");
             Debug.Log("Animation close");
             optionButtonClicked = false;
+
         }
     }
 
@@ -101,6 +102,7 @@ public class SceneController : MonoBehaviour
     //Quit Button
     public void QuitGame()
     {
+        Debug.Log("Quitting the game");
         Application.Quit();
     }
 }
