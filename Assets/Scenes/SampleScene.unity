@@ -1806,7 +1806,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865618966}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6965b4575331d484497222eebae954bd, type: 3}
@@ -9359,8 +9359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988c635f475ad414d9f3557a07c585d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 7528377725122295449, guid: 3071c072380cdc3409cefaecbdcc5eff, type: 3}
   spawnPoints:
   - {fileID: 1376664584}
   - {fileID: 1028175159}
@@ -9387,6 +9385,10 @@ MonoBehaviour:
   scoreTotal: 0
   baseTimeLimit: 10
   timeLimitIncreasePerWave: 2
+  defaultObject: {fileID: 7528377725122295449, guid: 3071c072380cdc3409cefaecbdcc5eff, type: 3}
+  prefabOne: {fileID: 7528377725122295449, guid: 3071c072380cdc3409cefaecbdcc5eff, type: 3}
+  prefabTwo: {fileID: 7528377725122295449, guid: 8dde77a727e8b284e87e33968939c36b, type: 3}
+  prefabThree: {fileID: 7528377725122295449, guid: bc4a719fbb516094a873df8615287a91, type: 3}
 --- !u!4 &1850748723
 Transform:
   m_ObjectHideFlags: 0
