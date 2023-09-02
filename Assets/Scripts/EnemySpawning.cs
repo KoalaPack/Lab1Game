@@ -200,7 +200,7 @@ public class EnemySpawning : MonoBehaviour
 
 
         float timeDifference = waveCompletionTime - currentWaveTimeLimit;
-        int timeScore = Mathf.Max(0, Mathf.FloorToInt(100 - (timeDifference * 10) - (currentWave * 5)));
+        int timeScore = Mathf.Max(0, Mathf.FloorToInt(10 - (timeDifference * 10) - (currentWave * 5)));
         scoreTotal += timeScore;
 
         if (currentWave == 2)

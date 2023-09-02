@@ -10,6 +10,9 @@ public class SceneController : MonoBehaviour
 {
     //Different menues
     public GameObject mainMenu;
+    public GameObject tutorialPanel;
+    public GameObject howToPlayPanel;
+    public GameObject controlsPanel;
 
     //Get the Animation
     public Animator animOpen;
@@ -23,12 +26,17 @@ public class SceneController : MonoBehaviour
     public void Start()
     {
         mainMenu.SetActive(true);
+        tutorialPanel.SetActive(false);
+        howToPlayPanel.SetActive(false);
+        controlsPanel.SetActive(false);
+
         optionButtonClicked = false;
         animOpen = GetComponent<Animator>();
         animClose = GetComponent<Animator>();
         Music.SetActive(false);
         SFX.SetActive(false);
         optionsButton = false;
+
     }
 
     public void Options()
@@ -86,18 +94,44 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void TutorialPanel()
+    {
+        mainMenu.SetActive(false);
+        tutorialPanel.SetActive(true);
+        howToPlayPanel.SetActive(false);
+        controlsPanel.SetActive(true);
+    }
+
+    public void ControllsPanel()
+    {
+        mainMenu.SetActive(false);
+        tutorialPanel.SetActive(true);
+        howToPlayPanel.SetActive(false);
+        controlsPanel.SetActive(true);
+    }
+
+    public void GameRulesPanel()
+    {
+        mainMenu.SetActive(false);
+        tutorialPanel.SetActive(true);
+        howToPlayPanel.SetActive(true);
+        controlsPanel.SetActive(false);
+    }
+
+    public void BackToMenu()
+    {
+        mainMenu.SetActive(true);
+        tutorialPanel.SetActive(false);
+        howToPlayPanel.SetActive(false);
+        controlsPanel.SetActive(false);
+    }
+
+
     //Gets the active scene name
     public string GetSceneName()
     {
         return SceneManager.GetActiveScene().name;
     }
-
-
-
-
-
-
-
 
     //Quit Button
     public void QuitGame()

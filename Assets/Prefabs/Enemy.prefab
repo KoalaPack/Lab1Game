@@ -3484,7 +3484,7 @@ MonoBehaviour:
   movementSpeed: 4
   attackRange: 2
   attackDamage: 1
-  attackForce: 0.2
+  attackForce: 0.5
   attackTimer: 10
   attackCooldown: 3
   stopDuration: 1
@@ -3541,7 +3541,7 @@ MonoBehaviour:
   enemyAiScript: {fileID: -2720343346006592320}
   prefabGameObject: {fileID: 7528377725122295449}
   speedMultiplier: 10
-  pauseDuration: 2
+  pauseDuration: 1
   audioSource: {fileID: 8446332545771938107}
   hitSound: {fileID: 8300000, guid: 0bb71fd84c1a989469c214329a7afa4e, type: 3}
   audiobreak: {fileID: 317048752152659357}
