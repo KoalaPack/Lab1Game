@@ -37,6 +37,7 @@ public class SceneController : MonoBehaviour
         SFX.SetActive(false);
         optionsButton = false;
 
+
     }
 
     public void Options()
@@ -125,7 +126,6 @@ public class SceneController : MonoBehaviour
         howToPlayPanel.SetActive(false);
         controlsPanel.SetActive(false);
     }
-
 
     //Gets the active scene name
     public string GetSceneName()

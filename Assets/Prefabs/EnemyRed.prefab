@@ -3481,10 +3481,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44bcc376d6912d24f8a85906541d73c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
+  movementSpeed: 4.5
   attackRange: 2
   attackDamage: 1
-  attackForce: 0.5
+  attackForce: 1
   attackTimer: 10
   attackCooldown: 3
   stopDuration: 1

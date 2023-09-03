@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class EnemySpawning : MonoBehaviour
 {
     public GameObject[] spawnPoints;
@@ -19,6 +20,7 @@ public class EnemySpawning : MonoBehaviour
 
     public TMP_Text scoreText;
     public int scoreTotal = 0;
+    private int scoreAdder;
 
     public float baseTimeLimit = 10.0f;
     public float timeLimitIncreasePerWave = 2.0f;
@@ -191,7 +193,7 @@ public class EnemySpawning : MonoBehaviour
         // Calculate score for the previous wave and add it to the current score
         CalculateScore();
         scoreText.text = "Score: " + scoreTotal.ToString();
-        waveWaitText.text = "Wave: " + currentWave;
+        //waveWaitText.text = "Wave: " + currentWave;
     }
 
     private void CalculateScore()
@@ -199,9 +201,16 @@ public class EnemySpawning : MonoBehaviour
         float waveCompletionTime = Time.time - waveStartTime;
 
 
-        float timeDifference = waveCompletionTime - currentWaveTimeLimit;
-        int timeScore = Mathf.Max(0, Mathf.FloorToInt(10 - (timeDifference * 10) - (currentWave * 5)));
+        float timeDifference = waveCompletionTime + currentWaveTimeLimit;
+        int timeScore = Mathf.Max(1, Mathf.FloorToInt(10 - (timeDifference * 5) - (currentWave * 3)));
+
+        // Create a Random object to generate random numbers.
+        int scoreAdder = Random.Range(0, 10);
+
+
+        timeScore *= scoreAdder;
         scoreTotal += timeScore;
+        
 
         if (currentWave == 2)
         {

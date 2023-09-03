@@ -3484,7 +3484,7 @@ MonoBehaviour:
   movementSpeed: 4
   attackRange: 2
   attackDamage: 1
-  attackForce: 0.5
+  attackForce: 0.3
   attackTimer: 10
   attackCooldown: 3
   stopDuration: 1
